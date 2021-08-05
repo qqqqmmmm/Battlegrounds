@@ -1,28 +1,28 @@
 """
 鱼人
 """
-from minion.minion import Minion
+from minion.minion import MinionWhite
 
 
-class MurlocTidecaller(Minion):
+class MurlocTidecaller(MinionWhite):
     def __init__(self, source):
         super(MurlocTidecaller, self).__init__('Murloc Tidecaller', 'murloc', 1, 1, 2, source,
                                                {})
 
 
-class MurlocTidehunter(Minion):
+class MurlocTidehunter(MinionWhite):
     def __init__(self, source):
         super(MurlocTidehunter, self).__init__('Murloc Tidehunter', 'murloc', 1, 2, 1, source,
                                                {'battlecry': True})
 
 
-class RockpoolHunter(Minion):
+class RockpoolHunter(MinionWhite):
     def __init__(self, source):
         super(RockpoolHunter, self).__init__('Rockpool Hunter', 'murloc', 1, 2, 3, source,
                                              {'battlecry': True})
 
 
-class MurlocScout(Minion):
+class MurlocScout(MinionWhite):
     # 衍生物
     def __init__(self, source):
         super(MurlocScout, self).__init__('Murloc Scout', 'murloc', 1, 1, 1, source,

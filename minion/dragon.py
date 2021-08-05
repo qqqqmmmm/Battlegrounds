@@ -1,16 +1,16 @@
 """
 龙
 """
-from minion.minion import Minion
+from minion.minion import MinionWhite
 
 
-class DragonspawnLieutenant(Minion):
+class DragonspawnLieutenant(MinionWhite):
     def __init__(self, source):
         super(DragonspawnLieutenant, self).__init__('Dragonspawn Lieutenant', 'dragon', 1, 2, 3, source,
                                                     {'taunt': True})
 
 
-class RedWhelp(Minion):
+class RedWhelp(MinionWhite):
     def __init__(self, source):
         super(RedWhelp, self).__init__('Red Whelp', 'dragon', 1, 1, 2, source,
                                        {})

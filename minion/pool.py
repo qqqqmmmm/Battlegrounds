@@ -8,7 +8,7 @@ from minion.elemental import *
 from minion.mech import *
 from minion.murloc import *
 from minion.pirate import *
-from minion.neutral import *
+from minion.general import *
 
 import random
 
@@ -21,10 +21,10 @@ class MinionPool:
         self.name2class = dict()
         for tier in range(1, 7):
             self.tier2name[tier] = []
-            for name in tier2names_neutral[tier]:
+            for name in tier2names_general[tier]:
                 self.tier2name[tier].append(name)
                 self.name2number[name] = self.tier2number[tier]
-            self.name2class.update(name2class_neutral)
+            self.name2class.update(name2class_general)
             if 'beast' in races:
                 for name in tier2names_beast[tier]:
                     self.tier2name[tier].append(name)

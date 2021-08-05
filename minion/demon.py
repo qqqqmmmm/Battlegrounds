@@ -1,22 +1,22 @@
 """
 恶魔
 """
-from minion.minion import Minion
+from minion.minion import MinionWhite
 
 
-class FiendishServant(Minion):
+class FiendishServant(MinionWhite):
     def __init__(self, source):
         super(FiendishServant, self).__init__('Fiendish Servant', 'demon', 1, 2, 1, source,
                                               {'deathrattle': True})
 
 
-class VulgarHomunculus(Minion):
+class VulgarHomunculus(MinionWhite):
     def __init__(self, source):
         super(VulgarHomunculus, self).__init__('Vulgar Homunculus', 'demon', 1, 2, 4, source,
                                                {'taunt': True})
 
 
-class WrathWeaver(Minion):
+class WrathWeaver(MinionWhite):
     def __init__(self, source):
         super(WrathWeaver, self).__init__('Wrath Weaver', 'none', 1, 1, 3, source,
                                           {})

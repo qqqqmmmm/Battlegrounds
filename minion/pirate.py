@@ -1,16 +1,16 @@
 """
 海盗
 """
-from minion.minion import Minion
+from minion.minion import MinionWhite
 
 
-class DeckSwabbie(Minion):
+class DeckSwabbie(MinionWhite):
     def __init__(self, source):
         super(DeckSwabbie, self).__init__('Deck Swabbie', 'pirate', 1, 2, 2, source,
                                           {'battlecry': True})
 
 
-class Scallywag(Minion):
+class Scallywag(MinionWhite):
     def __init__(self, source):
         super(Scallywag, self).__init__('Scallywag', 'pirate', 1, 2, 1, source,
                                         {'deathrattle': True})

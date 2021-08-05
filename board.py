@@ -20,6 +20,7 @@ class Board:
         self.triple_reward = []  # 三连奖励的随从
         self.hand = []  # 手牌
         self.minions = []  # 己方场上的随从
+        self.minions_combat = []  # 战斗阶段场上的随从
         self.minion_counter = Counter()  # 统计随从用于判断三连，不记录金色随从
         self.minion_info = (0, 'none')  # 其他玩家可见的随从信息
         self.tavern = []  # 酒馆中的随从

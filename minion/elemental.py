@@ -1,16 +1,16 @@
 """
 元素
 """
-from minion.minion import Minion
+from minion.minion import MinionWhite
 
 
-class RefreshingAnomaly(Minion):
+class RefreshingAnomaly(MinionWhite):
     def __init__(self, source):
         super(RefreshingAnomaly, self).__init__('Refreshing Anomaly', 'elemental', 1, 1, 3, source,
                                                 {'battlecry': True})
 
 
-class Sellemental(Minion):
+class Sellemental(MinionWhite):
     def __init__(self, source):
         super(Sellemental, self).__init__('Sellemental', 'elemental', 1, 2, 2, source,
                                           {})
