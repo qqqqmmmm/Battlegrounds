@@ -69,7 +69,7 @@ class Minion:
         self.info['reborn'] = self.reborn_initial and self.reborn_buff
 
     def sell(self):
-        self.board_mine.coin = max(self.board_mine.coin_max, self.board_mine.coin + 1)
+        self.board_mine.coin = min(self.board_mine.coin_max, self.board_mine.coin + 1)
 
 
 class MinionWhite(Minion):

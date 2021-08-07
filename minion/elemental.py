@@ -10,7 +10,10 @@ class RefreshingAnomaly(MinionWhite):
                                                 {'battlecry'})
 
     def battlecry(self, targets):
-        self.board_mine.refresh_free = 1
+        if self.is_gold:
+            self.board_mine.refresh_free = max(2, self.board_mine.refresh_free)
+        else:
+            self.board_mine.refresh_free = max(1, self.board_mine.refresh_free)
 
 
 class Sellemental(MinionWhite):
@@ -18,12 +21,26 @@ class Sellemental(MinionWhite):
         super(Sellemental, self).__init__('Sellemental', 'elemental', 1, 2, 2, source,
                                           set())
 
+    def sell(self):
+        self.board_mine.coin = min(self.board_mine.coin_max, self.board_mine.coin + 1)  # 重写sell函数需要补上这一行
+        if self.is_gold:
+            for _ in range(min(2, 10 - len(self.board_mine.hand))):
+                self.board_mine.minion_enter_hand(WaterDroplet(''))
+        else:
+            for _ in range(min(1, 10 - len(self.board_mine.hand))):
+                self.board_mine.minion_enter_hand(WaterDroplet(''))
 
-# 此处缺22衍生物
+
+class WaterDroplet(MinionWhite):
+    # 衍生物
+    def __init__(self, source):
+        super(WaterDroplet, self).__init__('Water Droplet', 'elemental', 1, 2, 2, source,
+                                           set())
 
 
 name2class_elemental = {'Refreshing Anomaly': RefreshingAnomaly,
-                        'Sellemental': Sellemental}
+                        'Sellemental': Sellemental,
+                        'Water Droplet': WaterDroplet}
 # 仅包括可购买的随从，不包括衍生物
 tier2name_elemental = {1: ('Refreshing Anomaly', 'Sellemental'),
                        2: (),

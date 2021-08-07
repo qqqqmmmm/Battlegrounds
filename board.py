@@ -19,6 +19,7 @@ class Board:
         self.triple_cards = 0  # 三连个数
         self.triple_reward = []  # 三连奖励的随从
         self.hand = []  # 手牌
+        self.hand_max = 10  # 最大手牌上限
         self.minions = []  # 己方场上的随从
         self.minions_combat = []  # 战斗阶段场上的随从
         self.minion_counter = Counter()  # 统计随从用于判断三连，不记录金色随从
@@ -39,12 +40,16 @@ class Board:
         self.battlecry_num = 1  # 战吼触发次数
 
     def recruit_minion(self, idx):
-        if idx < len(self.tavern) and self.coin >= self.recruit_cost and len(self.hand) < 10:  # 钱够且手牌未满
+        if idx < len(self.tavern) and self.coin >= self.recruit_cost and len(self.hand) < self.hand_max:  # 钱够且手牌未满
             self.coin -= self.recruit_cost
             minion = self.tavern.pop(idx)
             minion.board_mine = self  # 将minion所属board指向自己
-            self.hand.append(minion)
-            self.minion_counter.update([minion.name])
+            self.minion_enter_hand(minion)
+
+    def minion_enter_hand(self, minion):
+        self.hand.append(minion)
+        if not minion.is_gold:
+            self.minion_counter[minion.name] += 1
             self.check_triple()
 
     def sell_minion(self, idx):
@@ -52,7 +57,7 @@ class Board:
             minion = self.minions.pop(idx)
             minion.sell()  # 触发出售随从时的效果
             if not minion.is_gold:
-                self.minion_counter.subtract([minion.name])
+                self.minion_counter[minion.name] -= 1
             self.minion_pool.back_to_pool(minion)
 
     def refresh(self, at_begin: bool):
@@ -98,6 +103,14 @@ class Board:
 
     def enter_ground(self, minion):
         self.minions.append(minion)
+        # 此处需加入与熊妈等随从的相关互动
+
+    def summon_minion(self, minion):
+        self.enter_ground(minion)
+        self.minion_counter[minion.name] += 1
+        # 此处需加入与卡德加相关互动
+        # 需修改三连判定，暂时找回整活的快乐
+        self.check_triple()
 
     def freeze(self):
         self.tavern_is_frozen = not self.tavern_is_frozen
@@ -168,7 +181,7 @@ class Board:
             self.hand.remove(minion)
         gold_minion = generate_gold_minion(self.minion_pool.name2class[name], source_minions + source_hand)
         gold_minion.board_mine = self
-        self.hand.append(gold_minion)
+        self.minion_enter_hand(gold_minion)
 
     def new_turn(self, turn):
         self.update_minion_info()  # 更新其他人可见的随从种族信息
