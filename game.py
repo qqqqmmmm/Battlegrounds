@@ -14,8 +14,8 @@ class Game:
         self.turn = 0
         self.turn2time = lambda x: min(45 + self.turn * 15, 180)  # 每回合时长
         self.time = 0  # 剩余时长
-        self.minion_types = random.sample(['beast', 'demon', 'dragon', 'elemental', 'mech', 'murloc', 'pirate'],
-                                          5)  # 随机挑选种族
+        self.minion_types = random.sample(['beast', 'demon', 'dragon', 'elemental',
+                                           'mech', 'murloc', 'pirate', 'quilboar'], 5)  # 随机挑选种族
         # 初始化英雄池
         self.minion_pool = MinionPool(self.minion_types)  # 初始化随从池
         # 初始化玩家

@@ -8,6 +8,7 @@ from minion.elemental import *
 from minion.mech import *
 from minion.murloc import *
 from minion.pirate import *
+from minion.quilboar import *
 from minion.general import *
 
 import random
@@ -26,49 +27,46 @@ class MinionPool:
                 self.tier2name[tier].append(name)
                 self.name2number[name] = self.tier2number[tier]
             self.name2class.update(name2class_general)
-            self.tier2name_minion_type['general'] = tier2name_general
             if 'beast' in races:
                 for name in tier2name_beast[tier]:
                     self.tier2name[tier].append(name)
                     self.name2number[name] = self.tier2number[tier]
                 self.name2class.update(name2class_beast)
-                self.tier2name_minion_type['beast'] = tier2name_beast
             if 'demon' in races:
                 for name in tier2name_demon[tier]:
                     self.tier2name[tier].append(name)
                     self.name2number[name] = self.tier2number[tier]
                 self.name2class.update(name2class_demon)
-                self.tier2name_minion_type['demon'] = tier2name_demon
             if 'dragon' in races:
                 for name in tier2name_dragon[tier]:
                     self.tier2name[tier].append(name)
                     self.name2number[name] = self.tier2number[tier]
                 self.name2class.update(name2class_dragon)
-                self.tier2name_minion_type['dragon'] = tier2name_dragon
             if 'elemental' in races:
                 for name in tier2name_elemental[tier]:
                     self.tier2name[tier].append(name)
                     self.name2number[name] = self.tier2number[tier]
                 self.name2class.update(name2class_elemental)
-                self.tier2name_minion_type['elemental'] = tier2name_elemental
             if 'mech' in races:
                 for name in tier2name_mech[tier]:
                     self.tier2name[tier].append(name)
                     self.name2number[name] = self.tier2number[tier]
                 self.name2class.update(name2class_mech)
-                self.tier2name_minion_type['mech'] = tier2name_mech
             if 'murloc' in races:
                 for name in tier2name_murloc[tier]:
                     self.tier2name[tier].append(name)
                     self.name2number[name] = self.tier2number[tier]
                 self.name2class.update(name2class_murloc)
-                self.tier2name_minion_type['murloc'] = tier2name_murloc
             if 'pirate' in races:
                 for name in tier2name_pirate[tier]:
                     self.tier2name[tier].append(name)
                     self.name2number[name] = self.tier2number[tier]
                 self.name2class.update(name2class_pirate)
-                self.tier2name_minion_type['pirate'] = tier2name_pirate
+            if 'quilboar' in races:
+                for name in tier2name_quilboar[tier]:
+                    self.tier2name[tier].append(name)
+                    self.name2number[name] = self.tier2number[tier]
+                self.name2class.update(name2class_quilboar)
 
     def sample(self, tier: int):  # 从随从池中获得随从
         minions = []

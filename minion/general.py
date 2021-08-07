@@ -1,12 +1,12 @@
 """
 中立
 """
-from minion.minion import MinionWhite
+from minion.minion import Minion
 
 
-class AcolyteOfCThun(MinionWhite):
+class AcolyteOfCThun(Minion):
     def __init__(self, source):
-        super(AcolyteOfCThun, self).__init__('Acolyte Of CThun', 'general', 1, 2, 2, source,
+        super(AcolyteOfCThun, self).__init__('Acolyte Of CThun', 'none', 1, 2, 2, source,
                                              {'taunt', 'reborn'})
 
 

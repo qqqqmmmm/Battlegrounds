@@ -1,16 +1,15 @@
 """
 机械
 """
-from minion.minion import MinionWhite
+from minion.minion import Minion
 
 
-class MicroMachine(MinionWhite):
+class MicroMachine(Minion):
     def __init__(self, source):
-        super(MicroMachine, self).__init__('Micro Machine', 'mech', 1, 1, 2, source,
-                                           set())
+        super(MicroMachine, self).__init__('Micro Machine', 'mech', 1, 1, 2, source)
 
 
-class MicroMummy(MinionWhite):
+class MicroMummy(Minion):
     def __init__(self, source):
         super(MicroMummy, self).__init__('Micro Mummy', 'mech', 1, 1, 2, source,
                                          {'reborn'})

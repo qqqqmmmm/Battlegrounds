@@ -1,10 +1,10 @@
 """
 元素
 """
-from minion.minion import MinionWhite
+from minion.minion import Minion
 
 
-class RefreshingAnomaly(MinionWhite):
+class RefreshingAnomaly(Minion):
     def __init__(self, source):
         super(RefreshingAnomaly, self).__init__('Refreshing Anomaly', 'elemental', 1, 1, 3, source,
                                                 {'battlecry'})
@@ -16,10 +16,9 @@ class RefreshingAnomaly(MinionWhite):
             self.board_mine.refresh_free = max(1, self.board_mine.refresh_free)
 
 
-class Sellemental(MinionWhite):
+class Sellemental(Minion):
     def __init__(self, source):
-        super(Sellemental, self).__init__('Sellemental', 'elemental', 1, 2, 2, source,
-                                          set())
+        super(Sellemental, self).__init__('Sellemental', 'elemental', 1, 2, 2, source)
 
     def sell(self):
         self.board_mine.coin = min(self.board_mine.coin_max, self.board_mine.coin + 1)  # 重写sell函数需要补上这一行
@@ -31,11 +30,10 @@ class Sellemental(MinionWhite):
                 self.board_mine.minion_enter_hand(WaterDroplet(''))
 
 
-class WaterDroplet(MinionWhite):
+class WaterDroplet(Minion):
     # 衍生物
     def __init__(self, source):
-        super(WaterDroplet, self).__init__('Water Droplet', 'elemental', 1, 2, 2, source,
-                                           set())
+        super(WaterDroplet, self).__init__('Water Droplet', 'elemental', 1, 2, 2, source)
 
 
 name2class_elemental = {'Refreshing Anomaly': RefreshingAnomaly,

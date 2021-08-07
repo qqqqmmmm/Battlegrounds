@@ -1,7 +1,11 @@
-def f(idx, *args):
-    for arg in args:
-        print(arg)
-    print(args)
+class Minion:
+    def __init__(self):
+        c = {1, 2, 3}
+        self.a = c
+        self.b = c.union(set())
 
 
-f(1)
+minion = Minion()
+print(minion.a is minion.b)
+print(minion.a)
+print(minion.b)

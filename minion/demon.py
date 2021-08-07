@@ -1,16 +1,16 @@
 """
 恶魔
 """
-from minion.minion import MinionWhite
+from minion.minion import Minion
 
 
-class FiendishServant(MinionWhite):
+class FiendishServant(Minion):
     def __init__(self, source):
         super(FiendishServant, self).__init__('Fiendish Servant', 'demon', 1, 2, 1, source,
                                               {'deathrattle'})
 
 
-class VulgarHomunculus(MinionWhite):
+class VulgarHomunculus(Minion):
     def __init__(self, source):
         super(VulgarHomunculus, self).__init__('Vulgar Homunculus', 'demon', 1, 2, 4, source,
                                                {'battlecry', 'taunt'})
@@ -19,10 +19,9 @@ class VulgarHomunculus(MinionWhite):
         self.board_mine.health -= 2
 
 
-class WrathWeaver(MinionWhite):
+class WrathWeaver(Minion):
     def __init__(self, source):
-        super(WrathWeaver, self).__init__('Wrath Weaver', 'none', 1, 1, 3, source,
-                                          set())
+        super(WrathWeaver, self).__init__('Wrath Weaver', 'none', 1, 1, 3, source)
 
 
 name2class_demon = {'Fiendish Servant': FiendishServant,
