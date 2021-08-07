@@ -14,3 +14,9 @@ class TripleReward:
         self.name = 'Triple Reward'
         self.type = 'spell'
         self.tier = tier  # 发现此等级的随从
+
+
+class BloodGem:
+    def __init__(self):
+        self.name = 'Blood Gem'
+        self.type = 'spell'
