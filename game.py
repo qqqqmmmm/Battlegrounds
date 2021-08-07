@@ -50,7 +50,7 @@ class Game:
         elif action[0] == 'sell':
             self.boards[idx_player].sell_minion(int(action[1]))
         elif action[0] == 'use':
-            self.boards[idx_player].use_card(int(action[1]))
+            self.boards[idx_player].use_card(*list(map(int, action[1:])))
         elif action[0] == 'upgrade':
             self.boards[idx_player].upgrade_tier()
         elif action[0] == 'freeze':

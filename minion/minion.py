@@ -8,7 +8,7 @@ class Minion:
                  is_battlecry, is_deathrattle, divine_shield_initial, divine_shield_buff,
                  windfury_initial, windfury_buff, taunt_initial, taunt_buff,
                  poisonous_initial, poisonous_buff, reborn_initial, reborn_buff,
-                 magnetic_initial, magnetic_list, source):
+                 frenzy_initial, magnetic_initial, magnetic_list, source):
         self.name = name
         self.minion_type = minion_type
         self.type = 'minion'
@@ -39,6 +39,8 @@ class Minion:
         # 复生
         self.reborn_initial = reborn_initial
         self.reborn_buff = reborn_buff
+        # 暴怒
+        self.frenzy_initial = frenzy_initial
         # 磁力
         self.magnetic_initial = magnetic_initial
         self.magnetic_list = magnetic_list  # 记录贴在随从上的磁力随从
@@ -66,51 +68,50 @@ class Minion:
         self.info['poisonous'] = self.poisonous_initial and self.poisonous_buff
         self.info['reborn'] = self.reborn_initial and self.reborn_buff
 
+    def sell(self):
+        self.board_mine.coin = max(self.board_mine.coin_max, self.board_mine.coin + 1)
+
 
 class MinionWhite(Minion):
     def __init__(self, name: str, minion_type: str, tier: int, attack: int, health: int,
-                 source, characters: dict):
+                 source, characters: set):
         super(MinionWhite, self).__init__(name=name, minion_type=minion_type, tier=tier, is_gold=False,
                                           attack=attack, attack_buff=0, health=health, health_buff=0,
-                                          is_battlecry=characters.get('battlecry', False),
-                                          is_deathrattle=characters.get('deathrattle', False),
-                                          divine_shield_initial=characters.get('divine_shield', False),
+                                          is_battlecry='battlecry' in characters,
+                                          is_deathrattle='deathrattle' in characters,
+                                          divine_shield_initial='divine_shield' in characters,
                                           divine_shield_buff=False,
-                                          windfury_initial=characters.get('windfury', False),
+                                          windfury_initial='windfury' in characters,
                                           windfury_buff=False,
-                                          taunt_initial=characters.get('taunt', False),
+                                          taunt_initial='taunt' in characters,
                                           taunt_buff=False,
-                                          poisonous_initial=characters.get('poisonous', False),
+                                          poisonous_initial='poisonous' in characters,
                                           poisonous_buff=False,
-                                          reborn_initial=characters.get('reborn', False),
+                                          reborn_initial='reborn' in characters,
                                           reborn_buff=False,
-                                          magnetic_initial=characters.get('magnetic', False),
+                                          frenzy_initial='frenzy' in characters,
+                                          magnetic_initial='magnetic' in characters,
                                           magnetic_list=[],
                                           source=source)
 
 
-class MinionGold(Minion):
-    def __init__(self, sources: list):
-        super(MinionGold, self).__init__(name='Gold '+sources[0].name, minion_type=sources[0].minion_type,
-                                         tier=sources[0].tier, is_gold=True,
-                                         attack=sources[0].attack_initial * 2,
-                                         attack_buff=max(0, sources[0].attack_buff +
-                                                         sources[1].attack_buff + sources[2].attack_buff),
-                                         health=sources[0].health_initial * 2,
-                                         health_buff=max(0, sources[0].health_buff +
-                                                         sources[1].health_buff + sources[2].health_buff),
-                                         is_battlecry=sources[0].is_battlecry,
-                                         is_deathrattle=sources[0].is_deathrattle and sources[1].is_deathrattle and sources[2].is_deathrattle,
-                                         divine_shield_initial=sources[0].divine_shield_initial,
-                                         divine_shield_buff=sources[0].divine_shield_buff & sources[1].divine_shield_buff & sources[2].divine_shield_buff,
-                                         windfury_initial=sources[0].windfury_initial,
-                                         windfury_buff=sources[0].windfury_buff & sources[1].windfury_buff & sources[2].windfury_buff,
-                                         taunt_initial=sources[0].taunt_initial,
-                                         taunt_buff=sources[0].taunt_buff & sources[1].taunt_buff & sources[2].taunt_buff,
-                                         poisonous_initial=sources[0].poisonous_initial,
-                                         poisonous_buff=sources[0].poisonous_buff & sources[1].poisonous_buff & sources[2].poisonous_buff,
-                                         reborn_initial=sources[0].reborn_initial,
-                                         reborn_buff=sources[0].reborn_buff & sources[1].reborn_buff & sources[2].reborn_buff,
-                                         magnetic_initial=sources[0].magnetic_initial,
-                                         magnetic_list=sources[0].magnetic_list + sources[1].magnetic_list + sources[2].magnetic_list,
-                                         source=sources)
+def generate_gold_minion(minion_class, sources):
+    gold_minion = minion_class(sources)
+    gold_minion.name = 'Gold ' + gold_minion.name
+    gold_minion.is_gold = True
+    gold_minion.attack_initial *= 2
+    gold_minion.health_initial *= 2
+    for minion in sources:
+        gold_minion.attack_buff += minion.attack_buff
+        gold_minion.health_buff += minion.health_buff
+        gold_minion.is_deathrattle |= minion.is_deathrattle
+        gold_minion.divine_shield_buff |= minion.divine_shield_buff
+        gold_minion.windfury_buff |= minion.windfury_buff
+        gold_minion.taunt_buff |= minion.taunt_buff
+        gold_minion.poisonous_buff |= minion.taunt_buff
+        gold_minion.reborn_buff |= minion.reborn_buff
+        gold_minion.magnetic_list.extend(minion.magnetic_list)
+    # 金色随从身材不小于基础身材
+    gold_minion.attack_buff = max(0, gold_minion.attack_buff)
+    gold_minion.health_buff = max(0, gold_minion.health_buff)
+    return gold_minion
