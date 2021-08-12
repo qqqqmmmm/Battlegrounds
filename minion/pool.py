@@ -110,7 +110,3 @@ class MinionPool:
         elif isinstance(minion.source, list):
             for minion in minion.source:
                 self.back_to_pool(minion)
-
-
-if __name__ == '__main__':
-    pool = MinionPool(['murloc'])

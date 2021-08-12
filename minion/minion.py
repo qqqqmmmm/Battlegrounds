@@ -28,15 +28,25 @@ class Minion:
         self.source = source  # 来源
         self.is_frozen = False
 
-        # 以下两个用于实现战吼亡语等功能
-        self.board_mine = None  # 自己的board
-        self.board_opponent = None  # 对手的board
+        self.board_mine = None  # 自己的board，用于实现战吼
+        # 以下两个用于战斗阶段
+        self.minions_mine = None  # 自己的minions
+        self.minions_opponent = None  # 对手的minions
 
-    def buff(self, attack_buff: int, health_buff: int, characters=tuple()):
-        self.attack_buff += attack_buff
-        self.health_buff += health_buff
-        self.characters_buff = self.characters_buff.union(characters)
-        self.update_info()
+    def buff(self, attack_buff: int, health_buff: int, characters=tuple(), combat=False, permanent=False):
+        if combat:
+            self.attack += attack_buff
+            self.health += health_buff
+            self.characters = self.characters.union(characters)
+            if permanent:
+                self.attack_buff += attack_buff
+                self.health_buff += health_buff
+                self.characters_buff = self.characters_buff(characters)
+        else:
+            self.attack_buff += attack_buff
+            self.health_buff += health_buff
+            self.characters_buff = self.characters_buff.union(characters)
+            self.update_info()
 
     def update_info(self):
         self.attack = self.attack_initial + self.attack_buff

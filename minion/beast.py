@@ -101,7 +101,8 @@ class Rat(Minion):
 
 class CaveHydra(Minion):
     def __init__(self, source):
-        super(CaveHydra, self).__init__('Cave Hydra', 'beast', 4, 2, 4, source)
+        super(CaveHydra, self).__init__('Cave Hydra', 'beast', 4, 2, 4, source,
+                                        {'battlefury'})
 
 
 class SavannahHighmane(Minion):

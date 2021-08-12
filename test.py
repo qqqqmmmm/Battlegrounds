@@ -1,11 +1,10 @@
 class Minion:
     def __init__(self):
-        c = {1, 2, 3}
-        self.a = c
-        self.b = c.union(set())
+        pass
+        # a = [1, 2]
 
 
-minion = Minion()
-print(minion.a is minion.b)
-print(minion.a)
-print(minion.b)
+minion1 = Minion()
+minion2 = Minion()
+print(minion1 == minion2, minion1 is minion2)
+
